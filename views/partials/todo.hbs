@@ -1,0 +1,29 @@
+<form
+  hx-post='/todos/{{todo.id}}'
+  hx-target='this'
+  hx-swap='outerHTML'
+  hx-trigger='submit'
+>
+  <input type='hidden' name='done' value='1' />
+  <div class='flex'>
+    <div class='w-4/5'>
+      <p>{{todo.title}}</p>
+    </div>
+    <div class='w-1/5 text-right flex justify-end space-x-4'>
+      {{#if todo.done}}
+        <button class='btn btn-sm btn-primary' disabled>Doned</button>
+      {{else}}
+        <button type='submit' class='btn btn-sm btn-primary'>Done</button>
+      {{/if}}
+      <button
+        type='button'
+        class='btn btn-sm btn-primary'
+        hx-delete='/todos/{{todo.id}}'
+        hx-trigger='click'
+        hx-target='closest form'
+        hx-swap='outerHTML swap:1s'
+        hx-cofirm='Are you sure?'
+      >Delete</button>
+    </div>
+  </div>
+</form>

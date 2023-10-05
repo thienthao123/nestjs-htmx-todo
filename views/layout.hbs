@@ -1,0 +1,101 @@
+<html data-theme='light'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=devide-width, initial-scale=1.0' />
+
+    <link
+      href='https://cdn.jsdelivr.net/npm/daisyui@3.5.1/dist/full.css'
+      rel='stylesheet'
+      type='text/css'
+    />
+    <style>
+      .htmx-swapping { opacity: 0; transition: opacity 1s; }
+
+    </style>
+    <script src='https://cdn.tailwindcss.com'></script>
+    <script src='https://unpkg.com/htmx.org@1.9.4'></script>
+
+  </head>
+  <body class='bg-sky-100'>
+    <nav class='flex items-center justify-between flex-wrap bg-teal-500 p-6'>
+      <div class='flex items-center flex-shrink-0 text-white mr-6'>
+        <span class='font-semibold text-xl tracking-tight'>Todo App</span>
+      </div>
+      <div class='block lg:hidden'>
+        <button
+          class='flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white'
+          onclick="document.getElementById('nav-content').classList.toggle('hidden');"
+        >
+          <svg
+            class='fill-current h-3 w-3'
+            viewBox='0 0 20 20'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <title>Menu</title>
+            <path
+              fill-rule='evenodd'
+              d='M2 5a1 1 0 011-1h14a1 1 0 110 2H3a1 1 0 01-1-1zm0 5a1 1 0
+              011-1h14a1 1 0 110 2H3a1 1 0 01-1-1zm0 5a1 1 0
+              011-1h14a1 1 0 110 2H3a1 1 0 01-1-1z'
+              clip-rule='evenodd'
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <div
+        class='w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0'
+        id='nav-content'
+      >
+        <ul class='list-reset lg:flex justify-end flex-1 items-center'>
+          <li class='mr-3'>
+            <a
+              class='inline-block py-2 px-4 text-white no-underline'
+              href='/'
+            >Home</a>
+          </li>
+          <li class='mr-3'>
+            <a
+              class='inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4'
+              href='/todos'
+            >Todos</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class='w-4/5 my-6 mx-auto p-2 lg:p-10 bg-white rounded-xl'>
+      <form hx-post='/todos' hx-target='#todos' class='flex mb-6 space-x-4'>
+        <input
+          type='text'
+          placeholder='Type here'
+          class='input input-bordered input-primary w-full'
+          name='title'
+          class='title'
+        />
+        <button type='submit' class='btn btn-primary'>+</button>
+      </form>
+      <div class='flex py-3 rounded-xl bg-gray-100 p-6'>
+        <div class='w-4/5'>
+          <p>Title</p>
+        </div>
+        <div class='w-1/5 text-right'>
+          <p>Actions</p>
+        </div>
+
+      </div>
+      <div class='divider'></div>
+
+      <div id='todos'>
+
+        {{{body}}}
+
+      </div>
+
+    </div>
+  </body>
+  <script>
+    document.body.addEventListener('htmx:afterRequest', function(evt) {
+    document.querySelector('input').value = ''; })
+
+  </script>
+</html>
